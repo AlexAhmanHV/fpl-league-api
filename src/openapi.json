@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FPL Mini-League API",
+    "description": "A documented API for a Fantasy Premier League mini-league, built on top of FPL's unofficial public data. Adds stats FPL itself doesn't show: captain accuracy, chip usage across a league, and head-to-head comparisons.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/leagues/{league_id}/standings": {
+      "get": {
+        "tags": ["league"],
+        "summary": "Current standings for a classic mini-league",
+        "parameters": [
+          { "name": "league_id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "League not found" } }
+      }
+    },
+    "/leagues/{league_id}/history": {
+      "get": {
+        "tags": ["league"],
+        "summary": "Gameweek-by-gameweek points and overall rank for every team in the league",
+        "parameters": [
+          { "name": "league_id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "League not found" } }
+      }
+    },
+    "/leagues/{league_id}/chips": {
+      "get": {
+        "tags": ["league"],
+        "summary": "Which chip each team played, and when",
+        "parameters": [
+          { "name": "league_id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "League not found" } }
+      }
+    },
+    "/leagues/{league_id}/chip-status": {
+      "get": {
+        "tags": ["league"],
+        "summary": "Which chips each team has left, is missing, or already used, per season half",
+        "parameters": [
+          { "name": "league_id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "League not found" } }
+      }
+    },
+    "/leagues/{league_id}/captains": {
+      "get": {
+        "tags": ["league"],
+        "summary": "Captain choice per team for a gameweek, and whether it was optimal",
+        "parameters": [
+          { "name": "league_id", "in": "path", "required": true, "schema": { "type": "integer" } },
+          {
+            "name": "event_id",
+            "in": "query",
+            "required": false,
+            "description": "Gameweek number. Defaults to the current gameweek.",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "League not found" } }
+      }
+    },
+    "/leagues/{league_id}/transfers": {
+      "get": {
+        "tags": ["league"],
+        "summary": "Transfers each team made in a gameweek (players in/out, prices, and points hit)",
+        "parameters": [
+          { "name": "league_id", "in": "path", "required": true, "schema": { "type": "integer" } },
+          {
+            "name": "event_id",
+            "in": "query",
+            "required": false,
+            "description": "Gameweek number. Defaults to the current gameweek.",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "League not found" } }
+      }
+    },
+    "/head-to-head": {
+      "get": {
+        "tags": ["compare"],
+        "summary": "Gameweek-by-gameweek comparison between two FPL teams",
+        "parameters": [
+          {
+            "name": "entry_a",
+            "in": "query",
+            "required": true,
+            "description": "FPL team (entry) ID for the first manager",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "entry_b",
+            "in": "query",
+            "required": true,
+            "description": "FPL team (entry) ID for the second manager",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" }, "400": { "description": "entry_a and entry_b must differ" } }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["meta"],
+        "summary": "Health check",
+        "responses": { "200": { "description": "OK" } }
+      }
+    }
+  }
+}
