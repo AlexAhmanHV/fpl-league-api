@@ -121,10 +121,21 @@ export default function App() {
       </main>
 
       <footer className="px-6 py-8 text-center text-xs text-text-dim">
-        Byggt på FPL:s publika data ·{" "}
-        <a href="/docs" className="text-accent hover:underline">
-          API-dokumentation
+        <a
+          href="https://alexahman.se"
+          target="_blank"
+          rel="noreferrer"
+          className="mb-2 inline-flex items-center gap-2 text-text-dim transition hover:text-text"
+        >
+          <img src="/alex-logo.svg" alt="" className="h-5 w-5 rounded-[5px]" />
+          Created by AlexAhman
         </a>
+        <div>
+          Byggt på FPL:s publika data ·{" "}
+          <a href="/docs" className="text-accent hover:underline">
+            API-dokumentation
+          </a>
+        </div>
       </footer>
     </div>
   );
